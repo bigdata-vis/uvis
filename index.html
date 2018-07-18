@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+    <script src="uvis.js"></script>
+    <style>
+        .zoom {
+            cursor: move;
+            fill: none;
+            pointer-events: all;
+        }
+
+        circle {
+            fill: steelblue;
+            /*fill-opacity: 0.4;*/
+        }
+
+        .axis {
+            stroke-width: 0.5px;
+            stroke: #888;
+            font: 10px avenir next, sans-serif;
+        }
+
+        .axis > path {
+            stroke: #888;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+<p>Bar Chart</p>
+<div id="bioHistory"></div>
+</div>
+
+<div>
+    <p>Gradient Chart Timeline</p>
+    <div id="runningHistory"></div>
+</div>
+
+<script>
+    var timeLength = [
+        {name: 'Harry', value: 2, uncert: 10},
+        {name: 'Mark', value: 5, uncert: 0},
+        {name: 'James', value: 6, uncert: 4},
+        {name: 'Dave', value: 3, uncert: 9},
+        {name: 'Cahill', value: 7, uncert: 30},
+        {name: 'Jordan', value: 5, uncert: 2},
+        {name: 'Kane', value: 10, uncert: 20},
+        {name: 'Marcus', value: 3, uncert: 7}
+    ];
+
+    let runningChart = uvis.barChart().utype('boxplot');
+
+    d3.select('#bioHistory')
+        .datum(timeLength)
+        .call(runningChart);
+
+
+    let dateData = [
+        {message_id: 1970268.0, sent_time: '2013-04-05', end_time: '2013-04-10', messages_sent_in_day: 1},
+        {message_id: 2298946.0, sent_time: '2013-05-29', messages_sent_in_day: 1},
+        {message_id: 2575515.0, sent_time: '2013-07-13', messages_sent_in_day: 1},
+        {message_id: 2610242.0, sent_time: '2013-07-17', messages_sent_in_day: 1},
+        {message_id: 2610242.0, sent_time: '2013-07-18', end_time: '2013-07-19', messages_sent_in_day: 1},
+        {message_id: 2610242.0, sent_time: '2013-07-20', messages_sent_in_day: 1},
+        {message_id: 2610242.0, sent_time: '2013-07-21', messages_sent_in_day: 1},
+        {message_id: 2926234.0, sent_time: '2013-08-21', messages_sent_in_day: 1},
+        {message_id: 3110458.0, sent_time: '2013-09-06', messages_sent_in_day: 1},
+        {message_id: 3130002.0, sent_time: '2013-09-18', messages_sent_in_day: 1},
+        {message_id: 3255637.0, sent_time: '2013-09-29', end_time: '2013-10-25', messages_sent_in_day: 1},
+    ];
+
+    let gradientTimeline = uvis.timelineChart().uncertainty(10);
+
+    d3.select('#runningHistory')
+        .datum(dateData)
+        .call(gradientTimeline);
+
+</script>
+</body>
+</html>
